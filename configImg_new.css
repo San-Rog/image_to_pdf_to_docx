@@ -1,0 +1,300 @@
+::selection {
+  color: blue;
+  background: yellow;
+}
+
+p, h2 {
+    font-size: 17px !important;
+}
+
+img {
+    cursor: pointer;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.02); 
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+div[class*="info_info"] .stButton button {
+    background-color: #D8BFD8;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+div[class*="info_info"] .stButton button:hover {
+	background-color: #B52B36;
+	color: white;
+	box-shadow: 2px 3px 5px #888;
+	transform: translate(3%, -8%); 
+}
+
+div[class*="info_info"] .stButton button:active {
+	background-color: Khaki;
+	color: red;
+	cursor: wait;
+}
+
+div[class*="info_info"] .stButton button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;	
+}
+
+div[class*="info_info"] .stButton button:not(:hover){
+	background-color: #FAEFED;
+	color: black;	
+}
+
+.st-key-keyPill button {
+    background-color: #D8BFD8;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.st-key-keyPill button:hover {
+	background-color: LightSeaGreen;
+	color: white;
+	box-shadow: 2px 3px 5px #888;
+	transform: translate(2%, -5%); 
+}
+
+.st-key-keyPill button:active {
+	background-color: Khaki;
+	color: red;
+	cursor: wait;
+}
+
+.st-key-keyPill button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;	
+}
+
+.st-key-keyPill button:not(:hover){
+	background-color: #D9FCD9;
+	color: black;	
+}
+
+.st-key-keyPillTwo button {
+    background-color: #D8BFD8;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.st-key-keyPillTwo button:hover {
+	background-color: #B52B36;
+	color: white;
+	box-shadow: 2px 3px 5px #888;
+	transform: translate(2%, -5%); 
+}
+
+.st-key-keyPillTwo button:active {
+	background-color: Khaki;
+	color: red;
+	cursor: wait;
+}
+
+.st-key-keyPillTwo button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;	
+}
+
+.st-key-keyPillTwo button:not(:hover){
+	background-color: #FAEFED;
+	color: black;	
+}
+
+.st-key-keyPillThree button {
+    background-color: #D8BFD8;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.st-key-keyPillThree button:hover {
+	background-color: #E6EB3D;
+	color: black;
+	box-shadow: 2px 3px 5px #888;
+	transform: translate(2%, -5%); 
+}
+
+.st-key-keyPillThree button:active {
+	background-color: Khaki;
+	color: red;
+	cursor: wait;
+}
+
+.st-key-keyPillThree button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;	
+}
+
+.st-key-keyPillThree button:not(:hover){
+	background-color: #F9FF9E;
+	color: black;	
+}
+
+.st-key-keyPillFour button {
+    background-color: #D8BFD8;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.st-key-keyPillFour button:hover {
+	background-color: #8266ED;
+	color: white;
+	box-shadow: 2px 3px 5px #888;
+	transform: translate(2%, -5%); 
+}
+
+.st-key-keyPillFour button:active {
+	background-color: Khaki;
+	color: red;
+	cursor: wait;
+}
+
+.st-key-keyPillFour button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;	
+}
+
+.st-key-keyPillFour button:not(:hover){
+	background-color: #C8CDFA;
+	color: black;	
+}
+
+
+.st-key-keyPillFive button {
+    background-color: #D8BFD8;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.st-key-keyPillFive button:hover {
+	background-color: #B52B36;
+	color: white;
+	box-shadow: 2px 3px 5px #888;
+	transform: translate(2%, -5%); 
+}
+
+.st-key-keyPillFive button:active {
+	background-color: Khaki;
+	color: red;
+	cursor: wait;
+}
+
+.st-key-keyPillFive button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;	
+}
+
+.st-key-keyPillFive button:not(:hover){
+	background-color: #FAEFED;
+	color: black;	
+}
+
+.st-key-keyPillSix button {
+    background-color: #D8BFD8;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.st-key-keyPillSix button:hover {
+	background-color: #B52B36;
+	color: white;
+	box-shadow: 2px 3px 5px #888;
+	transform: translate(2%, -5%); 
+}
+
+.st-key-keyPillSix button:active {
+	background-color: Khaki;
+	color: red;
+	cursor: wait;
+}
+
+.st-key-keyPillSix button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;	
+}
+
+.st-key-keyPillSix button:not(:hover){
+	background-color: #FAEFED;
+	color: black;	
+}
+
+div[data-testid="stFileUploader"] button {
+	background-color: #D8BFD8;
+    color: black;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+div[data-testid="stFileUploader"] button:hover {
+	background-color: #5454F7;
+	color: white;
+	box-shadow: 2px 3px 5px #888;
+	transform: translate(2%, -5%); 
+}
+
+div[data-testid="stFileUploader"] button:active {
+	background-color: Khaki;
+	color: red;
+	cursor: wait;
+}
+
+div[data-testid="stFileUploader"] button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;	
+}
+
+div[data-testid="stFileUploader"] button:not(:hover){
+	background-color: #D7D7FA;
+	color: black;	
+}
+
+table td:nth-child(1) {
+  background-color: #D9FCD9; 
+}
+
+table tr:nth-child(n+8):nth-child(-n+8) td, tr:nth-child(2) th {
+  background-color: #C8CDFA; 
+}
+
+table tr:nth-child(n+9):nth-child(-n+9) td, tr:nth-child(2) th {
+  background-color: #F9FF9E; 
+}
+
+table tr:nth-child(n+10):nth-child(-n+19) td, tr:nth-child(2) th{
+  background-color: #FAEFED;
+}
+
+table td:nth-child(2) {
+  background-color: white !important; 
+}
+
+table td:nth-child(3) {
+  background-color: white !important; 
+}
