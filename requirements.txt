@@ -4,6 +4,7 @@ PyPDF2==3.0.1
 fpdf==1.7.2
 pymupdf==1.26.3
 streamlit_extras
+papersize
 
 
 
