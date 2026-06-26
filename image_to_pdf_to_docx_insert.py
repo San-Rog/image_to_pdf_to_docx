@@ -253,8 +253,7 @@ def saveMultImgDocx():
     doc = Document()
     section = doc.sections[0]
     section.page_width = Inches(sizePaper[0])
-    section.page_height = Inches(sizePaper[1])
-    doc.add_heading('Imagens Inseridas', level=1)
+    section.page_height = Inches(sizePaper[1])    
     nBts = len(uploades)
     for u, upload in enumerate(uploades):
         bytesData = st.session_state['bytesAll'][keysData[u]][0]
