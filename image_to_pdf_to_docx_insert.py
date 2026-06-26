@@ -455,8 +455,6 @@ def pillFuncSave(uploadedFiles):
     st.session_state['bytesAll'] = fullFiles(uploadedFiles, funcSel)
     keysData = list(st.session_state['bytesAll'].keys())
     anglesTwo = compareLoads()
-    st.text(anglesOne)
-    st.text(anglesTwo)
     for a, ang in enumerate(anglesOne): 
         angOne = ang
         angTwo = anglesTwo[a]
