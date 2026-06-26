@@ -87,6 +87,7 @@ def mensCreateAll(fileUps):
 def mensSliderUnique(*args):
     imgRotated = args[0]
     nameAll = args[1]
+    angleOld = st.session_state['bytesAll'][nameAll][0][3]
     nameSplit = nameAll.split('_')
     name, ext = os.path.splitext(nameSplit[0])
     if ext.strip() != '':
@@ -103,6 +104,8 @@ def mensSliderUnique(*args):
     else:
         rotatedImg = imgRotated
         nameRotated = nameFile
+    if angleSel != angleOld:
+        st.session_state['bytesAll'][nameAll][0][3] = angleSel
     with st.container(border=False, vertical_alignment="top", horizontal_alignment="center"):
         st.image(rotatedImg, caption=nameRotated)
 
@@ -234,7 +237,7 @@ def saveMultImgPdf():
         angleStr = bytesData[3]
         funcFile = bytesData[4] 
         newName = designateImgs(nameFile, u, nBts, angleStr, funcFile, 1)
-        img = modifyImage(upload, newWidth, angleFiles)
+        img = modifyImage(upload, newWidth, angleStr)
         canvas = Image.new("RGB", sizePaper, (255, 255, 255))
         drawImage = ImageDraw.Draw(canvas)
         posX = (widthPaper - img.width)//2
@@ -253,7 +256,8 @@ def saveMultImgDocx():
     doc = Document()
     section = doc.sections[0]
     section.page_width = Inches(sizePaper[0])
-    section.page_height = Inches(sizePaper[1])    
+    section.page_height = Inches(sizePaper[1])
+    doc.add_heading('Imagens Inseridas', level=1)
     nBts = len(uploades)
     for u, upload in enumerate(uploades):
         bytesData = st.session_state['bytesAll'][keysData[u]][0]
@@ -262,7 +266,7 @@ def saveMultImgDocx():
         funcFile = bytesData[4] 
         imgLoad = bytesData[-1]
         img = Image.open(imgLoad)
-        imRotated = modifyImage(upload, newWidth, angleFiles)
+        imRotated = modifyImage(upload, newWidth, angleStr)
         imgBytes = io.BytesIO()
         imRotated.save(imgBytes, format='PNG')
         imgBytes.seek(0)
@@ -416,7 +420,6 @@ def changePill(uploadedFiles, mode):
             st.session_state['disabPillTwo'] = True
         else:
             st.session_state['disabSlid'] = False
-            #st.session_state['disabPillTwo'] = False
     elif mode == 1:
         value = st.session_state['numSldImg']
         if value == 0:
@@ -436,13 +439,30 @@ def pillConfigExib(uploadedFiles, optSel):
         mensInfoAll()
     else:
         mensCreateAll(uploadedFiles) 
+        
+def compareLoads():
+    keysData = list(st.session_state['bytesAll'].keys())
+    angles = [st.session_state['bytesAll'][key][0][3] for key in keysData]
+    return angles
 
 def pillFuncSave(uploadedFiles):
+    keysData = list(st.session_state['bytesAll'].keys())
     funcSel = st.session_state['keyPillFive']
     funcNum = optFunc.index(funcSel)
+    anglesOne = compareLoads()
     st.session_state['containers'] = True
     st.session_state['allUpLoads'] = uploadedFiles
     st.session_state['bytesAll'] = fullFiles(uploadedFiles, funcSel)
+    keysData = list(st.session_state['bytesAll'].keys())
+    anglesTwo = compareLoads()
+    st.text(anglesOne)
+    st.text(anglesTwo)
+    for a, ang in enumerate(anglesOne): 
+        angOne = ang
+        angTwo = anglesTwo[a]
+        if angOne != angTwo: 
+            key = keysData[a]
+            st.session_state['bytesAll'][key][0][3] = angOne            
     if funcNum == 0:
         saveMultImgPdf()  
     else:
