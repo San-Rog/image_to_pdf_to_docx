@@ -3,7 +3,7 @@ pandas==2.3.3
 pymupdf==1.26.3
 papersize
 streamlit_extras
-docx==0.2.4
+python-docx
 
 
 
