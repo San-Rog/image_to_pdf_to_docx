@@ -546,7 +546,6 @@ def main():
                         st.space("xxsmall")
                         st.image(bytesDataRed, caption=nameFile)
                     st.space("xxsmall")
-                st.write(st.session_state['keyFirst'])
                 st.session_state['keyLast'] = newKeyFile 
             if st.session_state['numSlidesAll'] != 0:
                 mensSliderAll()
