@@ -573,7 +573,7 @@ def setPage():
         layout='wide', 
         initial_sidebar_state=None, 
         menu_items=None)
-    with open(r'C:\Users\ACER\Documents\css\configImg_new.css') as f:
+    with open('configImg_new.css') as f:
         css = f.read()
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
  
@@ -630,6 +630,5 @@ def setVars():
     return(optFiles, buttSymbs, optAll, optText, optInfo, optCreate, optPages, scopeText, optFunc, optAllPapers)
 
 if __name__ == '__main__':
-    #Checar depois opção em https://www.w3schools.com/tools/tool_image_to_pdf.php.
     st.cache_data.clear()
     main()
