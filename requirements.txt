@@ -2,7 +2,7 @@ pillow==10.3.0
 pandas==2.3.3
 pymupdf==1.26.3
 streamlit_extras
-papersize=1.7.0
+papersize==1.7.0
 
 
 
