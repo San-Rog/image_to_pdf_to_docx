@@ -64,20 +64,20 @@ def mensCreateAll(fileUps):
         margins = list(optAllMargins.keys())        
         colBadPapers, colPapers = st.columns([0.8, 10], vertical_alignment="center", width="stretch", 
                                              gap="small")
-        colBadPapers.badge(":material/badge:", width="stretch", help="Define o formato da página.", 
+        colBadPapers.badge(":material/assignment:", width="stretch", help="Define o formato da página.", 
                            color="green")
         colPapers.selectbox(label="Selecione o formato do papel", options=papers, label_visibility="collapsed", 
                             key="papelSelAll", width="stretch", index=6)
         colBadOrients, colOrients = st.columns([0.8, 10], vertical_alignment="center", width="stretch", 
                                              gap="small")
-        colBadOrients.badge(":material/badge:", width="stretch", help="Define a orientação da página.", 
+        colBadOrients.badge(":material/landscape:", width="stretch", help="Define a orientação da página.", 
                             color="blue")
         colOrients.selectbox(label="Selecione a orientação do papel", options=optAllOrients, label_visibility="collapsed", 
                              key="orientSelAll", width="stretch", index=1)
         
         colBadMargins, colMargins = st.columns([0.8, 10], vertical_alignment="center", width="stretch", 
                                                gap="small")
-        colBadMargins.badge(":material/badge:", width="stretch", help="Define a margem da página.", 
+        colBadMargins.badge(":material/margin:", width="stretch", help="Define a margem da página.", 
                             color="yellow")
         colMargins.selectbox(label="Selecione o formato do papel", options=margins, label_visibility="collapsed", 
                              key="marginSelAll", width="stretch", index=4)
