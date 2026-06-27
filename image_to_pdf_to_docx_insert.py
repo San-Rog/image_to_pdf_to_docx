@@ -15,6 +15,21 @@ from docx.shared import Inches, Pt
 from PIL import Image, ImageOps, ImageDraw, ImageFont
 from streamlit_extras.scroll_to_element import *
 
+@st.cache_data     
+def convertSize(tam):
+    var = ['KB', 'MB', 'GB', 'TB', 'PB']
+    size = 1024
+    rest = tam
+    for v, vr in enumerate(var):
+        x = divmod(tam, size)
+        tam = x[0]
+        rest = x[1]
+        if x[0] < 1000:
+            break
+    valFloat = f'{float(tam + rest/size):.2f}'
+    valStr = f'{valFloat.replace('.', ',')}{vr}'.strip()
+    return valStr.rjust(8)
+
 @st.dialog(title=":red[Informações sobre o app] :material/deployed_code:", width="medium", 
            icon=":material/info:", on_dismiss="ignore") 
 def mensInfoAll():
@@ -29,11 +44,17 @@ def mensCreateAll(fileUps):
     itens = [w+1 for w in intervUps]
     itensBruts = [w for w in intervUps]
     names, types, sizes = ([file.name for file in fileUps], [file.type for file in fileUps], 
-                           [file.size for file in fileUps])
+                           [convertSize(file.size) for file in fileUps])
     dictVals = {"item": itens, "nome": names, "tipo": types, "tamanho": sizes}
+    keyVals = list(dictVals.keys())
     df = pd.DataFrame(dictVals)
     st.dataframe(
             df,
+            column_config={
+            keyVals[0]: st.column_config.TextColumn(width="content", alignment="left"), 
+            keyVals[1]: st.column_config.TextColumn(width="content", alignment="left"), 
+            keyVals[2]: st.column_config.TextColumn(width="content", alignment="left"), 
+            keyVals[3]: st.column_config.TextColumn(width="content")},
             hide_index=True,
             width="stretch", 
             on_select="ignore"
