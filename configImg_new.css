@@ -50,7 +50,8 @@ div[class*="info_info"] .stButton button:not(:hover){
 	color: black;	
 }
 
-.st-key-keyPill button {
+.st-key-keyPill button, .st-key-keyPillTwo button, .st-key-keyPillThree button, .st-key-keyPillFour button, 
+.st-key-keyPillFive button, .st-key-keyPillSix button {
     background-color: #D8BFD8;
     color: white;
     border-radius: 8px;
@@ -64,13 +65,15 @@ div[class*="info_info"] .stButton button:not(:hover){
 	transform: translate(2%, -5%); 
 }
 
-.st-key-keyPill button:active {
+.st-key-keyPill button:active, .st-key-keyPillTwo button:active,  .st-key-keyPillThree button:active, 
+.st-key-keyPillFour button:active, .st-key-keyPillFive button:active, .st-key-keyPillSix button:active {
 	background-color: Khaki;
 	color: red;
 	cursor: wait;
 }
 
-.st-key-keyPill button:disabled {
+.st-key-keyPill button:disabled, .st-key-keyPillTwo button:disabled, .st-key-keyPillThree button:disabled, 
+.st-key-keyPillFour button:disabled, .st-key-keyPillFive button:disabled, .st-key-keyPillSix button:disabled{
 	cursor: not-allowed;
 	opacity: 0.5;
 	cursor: not-allowed;
@@ -82,43 +85,17 @@ div[class*="info_info"] .stButton button:not(:hover){
 	color: black;	
 }
 
-.st-key-keyPillTwo button {
-    background-color: #D8BFD8;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-.st-key-keyPillTwo button:hover {
+.st-key-keyPillTwo button:hover, .st-key-keyPillFive button:hover, .st-key-keyPillSix button:hover {
 	background-color: #B52B36;
 	color: white;
 	box-shadow: 2px 3px 5px #888;
 	transform: translate(2%, -5%); 
 }
 
-.st-key-keyPillTwo button:active {
-	background-color: Khaki;
-	color: red;
-	cursor: wait;
-}
-
-.st-key-keyPillTwo button:disabled {
-	cursor: not-allowed;
-	opacity: 0.5;
-	cursor: not-allowed;
-	pointer-events: none;	
-}
-
-.st-key-keyPillTwo button:not(:hover){
+.st-key-keyPillTwo button:not(:hover), .st-key-keyPillFive button:not(:hover), 
+.st-key-keyPillSix button:not(:hover){
 	background-color: #FAEFED;
 	color: black;	
-}
-
-.st-key-keyPillThree button {
-    background-color: #D8BFD8;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
 }
 
 .st-key-keyPillThree button:hover {
@@ -128,29 +105,9 @@ div[class*="info_info"] .stButton button:not(:hover){
 	transform: translate(2%, -5%); 
 }
 
-.st-key-keyPillThree button:active {
-	background-color: Khaki;
-	color: red;
-	cursor: wait;
-}
-
-.st-key-keyPillThree button:disabled {
-	cursor: not-allowed;
-	opacity: 0.5;
-	cursor: not-allowed;
-	pointer-events: none;	
-}
-
 .st-key-keyPillThree button:not(:hover){
 	background-color: #F9FF9E;
 	color: black;	
-}
-
-.st-key-keyPillFour button {
-    background-color: #D8BFD8;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
 }
 
 .st-key-keyPillFour button:hover {
@@ -160,86 +117,8 @@ div[class*="info_info"] .stButton button:not(:hover){
 	transform: translate(2%, -5%); 
 }
 
-.st-key-keyPillFour button:active {
-	background-color: Khaki;
-	color: red;
-	cursor: wait;
-}
-
-.st-key-keyPillFour button:disabled {
-	cursor: not-allowed;
-	opacity: 0.5;
-	cursor: not-allowed;
-	pointer-events: none;	
-}
-
 .st-key-keyPillFour button:not(:hover){
 	background-color: #C8CDFA;
-	color: black;	
-}
-
-
-.st-key-keyPillFive button {
-    background-color: #D8BFD8;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-.st-key-keyPillFive button:hover {
-	background-color: #B52B36;
-	color: white;
-	box-shadow: 2px 3px 5px #888;
-	transform: translate(2%, -5%); 
-}
-
-.st-key-keyPillFive button:active {
-	background-color: Khaki;
-	color: red;
-	cursor: wait;
-}
-
-.st-key-keyPillFive button:disabled {
-	cursor: not-allowed;
-	opacity: 0.5;
-	cursor: not-allowed;
-	pointer-events: none;	
-}
-
-.st-key-keyPillFive button:not(:hover){
-	background-color: #FAEFED;
-	color: black;	
-}
-
-.st-key-keyPillSix button {
-    background-color: #D8BFD8;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-.st-key-keyPillSix button:hover {
-	background-color: #B52B36;
-	color: white;
-	box-shadow: 2px 3px 5px #888;
-	transform: translate(2%, -5%); 
-}
-
-.st-key-keyPillSix button:active {
-	background-color: Khaki;
-	color: red;
-	cursor: wait;
-}
-
-.st-key-keyPillSix button:disabled {
-	cursor: not-allowed;
-	opacity: 0.5;
-	cursor: not-allowed;
-	pointer-events: none;	
-}
-
-.st-key-keyPillSix button:not(:hover){
-	background-color: #FAEFED;
 	color: black;	
 }
 
@@ -298,3 +177,39 @@ table td:nth-child(2) {
 table td:nth-child(3) {
   background-color: white !important; 
 }
+
+div.st-key-downDocx button, div.st-key-downPdf button{
+	background-color: #D8BFD8;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+	height: 55px;
+	width: 50px;
+}
+
+div.st-key-downDocx button:hover, div.st-key-downPdf button:hover {
+	background-color: #123619;
+	color: white;
+	box-shadow: 2px 3px 5px #888;
+	transform: translate(2%, -5%); 
+}
+
+div.st-key-downDocx button:active, div.st-key-downPdf button:active{
+	background-color: Khaki;
+	color: red;
+	cursor: wait;
+}
+
+div.st-key-downDocx button:disabled, div.st-key-downPdf button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;	
+}
+
+div.st-key-downDocx button:not(:hover), div.st-key-downPdf button:not(:hover) {
+	background-color: #F0FAFA;
+	color: black;	
+}
+
+
