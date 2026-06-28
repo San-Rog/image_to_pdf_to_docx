@@ -143,7 +143,7 @@ def mensSliderAll():
             nameFile = btData[0]
             bytesDataRed = btData[1]
             angleFile = btData[3]
-            textSld = f"{nameFile} - {timeSleep}s - {angleFile}°"
+            textSld = f"● {nameFile} ● {timeSleep}s ● {angleFile}°"
             msg.toast(textSld, icon=":material/wallpaper_slideshow:", duration="short")
             placeImg.image(bytesDataRed, caption=nameFile)
             time.sleep(timeSleep)
@@ -357,7 +357,7 @@ def designateImgs(nameFile, bt, nBts, angle, funcFile, categ):
         textImg = f'**{bt+1}/ {nBts}** ●  :blue[**{nameFile}**]  ●  :blue[**{angle}º**]'
         textImg += f'● :blue[**{funcFile}**]'
     else:
-        textImg = f'# {bt+1}/{nBts} - {nameFile} - {angle}º'
+        textImg = f'# {bt+1}/{nBts} ● {nameFile} ● {angle}º'
     return textImg
 
 def backForward(*args):
