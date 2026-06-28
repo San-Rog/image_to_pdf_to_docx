@@ -37,7 +37,7 @@ def mensInfoAll():
     dfButtons = pd.DataFrame(dictButtons)
     st.table(dfButtons, border=True, width="stretch", height="stretch")
         
-@st.dialog(title=":red[Configuração de imagens + download] :material/create_new_folder:", 
+@st.dialog(title=":red[Configuração de imagens] :material/create_new_folder:", 
            width="medium", icon=":material/settings:", on_dismiss="ignore") 
 def mensCreateAll(fileUps):
     intervUps = range(len(fileUps))
@@ -190,9 +190,13 @@ def mensDownPdf(*args):
     if down: 
         st.rerun()
         
-@st.dialog(title="Alerta sobre a funcionalidade", width="small", icon=":material/data_info_alert:")
-def mensError(mensText):
-    st.markdown(mensText)
+@st.dialog(title=":red[**Alerta sobre a funcionalidade**]", width="medium", icon=":material/warning:")
+def mensAlert(mensText):
+    st.warning(mensText, width="stretch")
+    
+@st.dialog(title=":red[**Erro no funcionamento do aplicativo**]", width="medium", icon=":material/warning:")
+def mensError(mensError):
+    st.error(mensError, width="stretch")
 
 @st.cache_data   
 def fullFiles(uploadedFiles, symbol):
@@ -431,8 +435,9 @@ def changePill(uploadedFiles, mode):
             case 5:
                 timeSleep = st.session_state['numSlidesAll']
                 if timeSleep == 0:
-                    mensText = f":material/timer_play: Tempo de exibição dos slides igual a {timeSleep} segundo. Altere esse parâmetro!"
-                    mensError(mensText)
+                    mensText = f":blue[**:material/timer_play:**] Tempo de exibição dos slides igual a :blue[**{int(timeSleep)}s**]. " \
+                               "Altere esse parâmetro usando o botão :blue[**:material/factory:**]."
+                    mensAlert(mensText)
                 else:
                     st.session_state['containers'] = True
                     st.session_state['allUpLoads'] = uploadedFiles
@@ -651,7 +656,7 @@ def setVars():
                "Exibição de fotos como slides", 
                "Limpeza de dados e objetos mostrados na tela", 
                "Informações e detalhamento sobre o app", 
-               "Configuração das imagens e download", 
+               "Configuração das imagens", 
                "Direcionamento à imagem de número especificado", 
                "Criação de arquivo Pdf", "Criação de arquivo Docx"]
     buttSymbs = {'trás': [':material/chevron_backward:', 'info_info'], 
@@ -674,5 +679,10 @@ def setVars():
     return(optFiles, buttSymbs, optAll, optText, optInfo, optCreate, optPages, scopeText, optFunc, optAllPapers)
 
 if __name__ == '__main__':
-    st.cache_data.clear()
-    main()
+    try:
+        main()
+    except Exception as fail:
+        mensText = f":blue[**:material/error:**] Houve o seguinte erro {fail}. Contate o administrador."
+        mensError(mensText)
+    finally:
+        st.cache_data.clear()
