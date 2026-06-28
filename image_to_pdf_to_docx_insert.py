@@ -441,6 +441,7 @@ def changePill(uploadedFiles, mode):
                 st.session_state['uploaderKey'] += 1            
         scroll_to_element("keyPill")
         st.session_state['keyPill'] = None
+        st.write(optSel)
         if optSel == 6: 
             st.session_state['disabSlid'] = True
             st.session_state['disabPillTwo'] = True
@@ -457,7 +458,6 @@ def changePill(uploadedFiles, mode):
         keySel = st.session_state['bytesAll'][keyValue][0][2]
         scroll_to_element(keySel)
         st.session_state['numSldImg'] = 0
-        st.session_state['disabSlid'] = True
     return  
 
 def pillConfigExib(uploadedFiles, optSel):
