@@ -149,10 +149,12 @@ def mensSliderAll():
             time.sleep(timeSleep)
 
 @st.dialog(title=":red[**Janela de download - arquivo Docx**]", width="small", icon=":material/docs:")
-def mensDownSingle(*args):
-    colSucc, colDown = st.columns([10, 2], vertical_alignment="center", width="stretch")
+def mensDownDocx(*args):
+    sizeCols = args[-1]
+    colSucc, colDown = st.columns(sizeCols, vertical_alignment="center", width="stretch")
     colSucc.success("Operação finalizada com sucesso!", icon=":material/done_all:", width="stretch")
     if colDown.download_button(
+                key="downDocx", 
                 label=args[0],
                 data=args[1],
                 file_name=args[2],
@@ -162,10 +164,11 @@ def mensDownSingle(*args):
         st.rerun()
         
 @st.dialog(title=":blue[**Janela de download - arquivo Pdf**]", width="small", icon=":material/picture_as_pdf:")
-def mensDownMult(*args):
+def mensDownPdf(*args):
     imagens = args[0]
     resol = args[1]
     pdfMerge = args[2]
+    sizeCols = args[3]
     imagens[0].save(
             pdfMerge, 
             "PDF", 
@@ -173,10 +176,11 @@ def mensDownMult(*args):
             save_all=True, 
             append_images=imagens[1:]
     )
-    colSucc, colDown = st.columns([10, 2], vertical_alignment="center", width="stretch")
+    colSucc, colDown = st.columns(sizeCols, vertical_alignment="center", width="stretch")
     colSucc.success("Operação finalizada com sucesso!", icon=":material/done_all:", width="stretch")
     with open(pdfMerge, "rb") as f:
         down = colDown.download_button(
+            key="downPdf",
             label="",
             data=f,
             file_name="imagens_reunidas.pdf",
@@ -267,7 +271,7 @@ def saveMultImgPdf():
         drawImage.text((posXtext, posY-50), newName, fill="blue", font=font)
         canvas.paste(img, (posX, posY))
         imagens.append(canvas)
-    mensDownMult(imagens, resolFiles, pdfMerge)
+    mensDownPdf(imagens, resolFiles, pdfMerge, [12, 1.5])
     
 def saveMultImgDocx():
     uploades, angleFiles, resolFiles, paperFiles, orientFiles, marginFiles, keysData = defineVector(0)
@@ -307,8 +311,9 @@ def saveMultImgDocx():
     buffer = io.BytesIO()
     doc.save(buffer)
     buffer.seek(0)
-    mensDownSingle("", buffer.getvalue(), "imagens_reunidas.docx", 
-                   "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    mensDownDocx("", buffer.getvalue(), "imagens_reunidas.docx", 
+                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
+                 [12, 1.5])
     
 def operationFiles(*args):
     mode = args[0]
@@ -379,6 +384,7 @@ def commandButt(job, sufix, bytesData=None, num=None):
         case 0 | 3: 
             backForward(num, jobSplit, elem) 
         case 1: 
+            scroll_to_element("keyPillFive")
             scroll_to_element(st.session_state['keyFirst'])
         case 2: 
             scroll_to_element(st.session_state['keyLast']) 
@@ -450,15 +456,15 @@ def changePill(uploadedFiles, mode):
         keyValue = listKeyImgs[value]
         keySel = st.session_state['bytesAll'][keyValue][0][2]
         scroll_to_element(keySel)
-        st.session_state['disabPillTwo'] = True
         st.session_state['numSldImg'] = 0
+        st.session_state['disabSlid'] = True
     return  
 
 def pillConfigExib(uploadedFiles, optSel):
     if optSel == 0:
         mensInfoAll()
     else:
-        mensCreateAll(uploadedFiles) 
+        mensCreateAll(uploadedFiles)
         
 def compareLoads():
     keysData = list(st.session_state['bytesAll'].keys())
@@ -486,6 +492,7 @@ def pillFuncSave(uploadedFiles):
     else:
         saveMultImgDocx()
     st.session_state['keyPillFive'] = None
+    st.session_state['disabSlid'] = False
        
 def main():
     global optFiles, buttSymbs, optPages
@@ -505,6 +512,7 @@ def main():
     buttSufix = [buttSymbs[key][1] for key in buttKeys]
     nameKey = lambda a, b: f'{a}_{str(b+1).zfill(3)}' 
     exts = ['BMP', 'GIF', 'ICO', 'JPG', 'PNG', 'PPM', 'TIF']
+    textHead = ':material/app_registration: <span style="color: #73505B;">Mescla de imagens e criação de arquivo pdf ou docx</span>'
     with st.container(border=True, vertical_alignment="top", horizontal_alignment="center"):
         colPills, colConfig = st.columns([15, 5.5])
         colUpload, colPage = st.columns([15, 5.5], vertical_alignment="center")
@@ -603,12 +611,14 @@ def checkDown(uploadedFiles):
 
 def setPage():
     st.set_page_config(
-        page_title='Conversor de imagens',
+        page_title='Mescla de imagens',
         page_icon=':material/image:',
         layout='wide', 
         initial_sidebar_state=None, 
         menu_items=None)
-    with open('configImg_new.css') as f:
+    fileCss = r'C:\Users\ACER\Documents\css\configImg_new.css' #(local)
+    #fileCss = 'configImg_new.css' #(github)
+    with open(fileCss) as f:
         css = f.read()
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
  
@@ -649,11 +659,11 @@ def setVars():
                  'topo': [':material/first_page:', 'top_top'], 
                  'final': [':material/last_page:', 'end_end'], 
                  'frente': [':material/chevron_forward:', 'forw_forw'],
-                 'exibição': [':material/search_check:', 'byte_byte'],
+                 'rotação': [':material/cameraswitch:', 'byte_byte'],
                 }
     optCommand = ["Recuo para a imagem anterior", 
                   "Recuo para o topo da tela", "Avanço para o final da tela",
-                  "Avanço para a imagem seguinte", "Exibição da imagem em diferentes ângulos"]
+                  "Avanço para a imagem seguinte", "Rotação da imagem"]
     optText += optCommand
     nComm = len(optCommand)
     info = lambda w: buttSymbs[w] 
