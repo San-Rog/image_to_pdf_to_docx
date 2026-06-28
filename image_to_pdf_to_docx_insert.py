@@ -616,8 +616,8 @@ def setPage():
         layout='wide', 
         initial_sidebar_state=None, 
         menu_items=None)
-    fileCss = r'C:\Users\ACER\Documents\css\configImg_new.css' #(local)
-    #fileCss = 'configImg_new.css' #(github)
+    #fileCss = r'C:\Users\ACER\Documents\css\configImg_new.css' #(local)
+    fileCss = 'configImg_new.css' #(github)
     with open(fileCss) as f:
         css = f.read()
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
