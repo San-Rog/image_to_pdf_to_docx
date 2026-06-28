@@ -357,7 +357,7 @@ def designateImgs(nameFile, bt, nBts, angle, funcFile, categ):
         textImg = f'**{bt+1}/ {nBts}** ●  :blue[**{nameFile}**]  ●  :blue[**{angle}º**]'
         textImg += f'● :blue[**{funcFile}**]'
     else:
-        textImg = f'# {bt+1}/{nBts} {nameFile} - {angle}º'
+        textImg = f'# {bt+1}/{nBts} - {nameFile} - {angle}º'
     return textImg
 
 def backForward(*args):
