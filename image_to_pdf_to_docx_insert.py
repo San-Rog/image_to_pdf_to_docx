@@ -441,7 +441,6 @@ def changePill(uploadedFiles, mode):
                 st.session_state['uploaderKey'] += 1            
         scroll_to_element("keyPill")
         st.session_state['keyPill'] = None
-        st.write(optSel)
         if optSel == 6: 
             st.session_state['disabSlid'] = True
             st.session_state['disabPillTwo'] = True
@@ -616,8 +615,8 @@ def setPage():
         layout='wide', 
         initial_sidebar_state=None, 
         menu_items=None)
-    #fileCss = r'C:\Users\ACER\Documents\css\configImg_new.css' #(local)
-    fileCss = 'configImg_new.css' #(github)
+    fileCss = r'C:\Users\ACER\Documents\css\configImg_new.css' #(local)
+    #fileCss = 'configImg_new.css' #(github)
     with open(fileCss) as f:
         css = f.read()
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
