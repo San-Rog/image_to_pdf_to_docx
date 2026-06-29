@@ -39,9 +39,15 @@ def mensInfoAll():
         
 def changeCheckbox(num):
     if num == 0:
-        st.session_state['checkNo'] = False
+        if st.session_state['checkYes']:
+            st.session_state['checkNo'] = False
+        else:
+            st.session_state['checkNo'] = True
     else:
-        st.session_state['checkYes'] = False
+        if st.session_state['checkNo']:
+            st.session_state['checkYes'] = False
+        else:
+            st.session_state['checkYes'] = True
 
 @st.dialog(title=":red[Configuração de imagens] :material/create_new_folder:", 
            width="medium", icon=":material/settings:", on_dismiss="ignore") 
