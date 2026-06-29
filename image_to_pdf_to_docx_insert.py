@@ -293,7 +293,6 @@ def saveMultImgPdf():
         posX = (widthPaper - img.width)//2
         posY = (heightPaper - img.height)//2
         posXtext = widthPaper//2
-        st.write(st.session_state['checkYes'])
         if st.session_state['checkYes']:
             drawImage.text((posXtext, posY-50), newName, fill="blue", font=font)
         canvas.paste(img, (posX, posY))
@@ -324,8 +323,6 @@ def saveMultImgDocx():
         newSize = int(widthPaper/resolFiles)
         newMargin = newSize*marginFiles
         newCaption = designateImgs(nameFile, u, nBts, angleStr, funcFile, 1)
-        st.write(st.session_state['checkYes'])
-        
         if st.session_state['checkYes']:
             titulo = doc.add_paragraph(newCaption)
             titulo.style = 'Caption'  
@@ -651,8 +648,8 @@ def setPage():
         layout='wide', 
         initial_sidebar_state=None, 
         menu_items=None)
-    #fileCss = r'C:\Users\ACER\Documents\css\configImg_new.css' #(local)
-    fileCss = 'configImg_new.css' #(github)
+    fileCss = r'C:\Users\ACER\Documents\css\configImg_new.css' #(local)
+    #fileCss = 'configImg_new.css' #(github)
     with open(fileCss) as f:
         css = f.read()
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
