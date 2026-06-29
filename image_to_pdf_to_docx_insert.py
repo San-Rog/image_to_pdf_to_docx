@@ -40,14 +40,10 @@ def mensInfoAll():
 def changeCheckbox(num):
     if num == 0:
         if st.session_state['checkYes']:
-            st.session_state['checkNo'] = False
-        else:
-            st.session_state['checkNo'] = True
+            st.session_state['checkNo'] = False        
     else:
         if st.session_state['checkNo']:
             st.session_state['checkYes'] = False
-        else:
-            st.session_state['checkYes'] = True
 
 @st.dialog(title=":red[Configuração de imagens] :material/create_new_folder:", 
            width="medium", icon=":material/settings:", on_dismiss="ignore") 
@@ -74,7 +70,6 @@ def mensCreateAll(fileUps):
     )
     colAngleTime, colOthers = st.columns(spec=2, vertical_alignment="center", width="stretch", 
                                          gap="medium")
-    
     with colAngleTime:
         colBadAngle, colAngle = st.columns([0.8, 10], vertical_alignment="center", width="stretch", 
                                            gap="small")
@@ -95,11 +90,11 @@ def mensCreateAll(fileUps):
         colResol.slider(label="Selecione a resolução da imagem", min_value=200, max_value=1600, 
                        key="numResolAll", value=200, label_visibility="collapsed", step=1)
         colBadYes, colYes = st.columns([0.8, 10], vertical_alignment="center", width="stretch", 
-                                           gap="small")
-        colBadYes.badge(":material/position_top_right:", width="stretch", help="Define a resolução da imagem.", 
-                        color="red")
+                                       gap="small")
+        colBadYes.badge(":material/position_top_right:", width="stretch", help="Se marcado, o título aparecerá sobreposto à imagem.", 
+                        color="yellow")
         colYes.checkbox(label=roleLabel[0], key="checkYes", width="stretch", on_change=changeCheckbox, 
-                        args=(0, ), value=True) 
+                        args=(0, )) 
     with colOthers:
         papers = list(optAllPapers.keys())
         margins = list(optAllMargins.keys())        
@@ -124,10 +119,10 @@ def mensCreateAll(fileUps):
                              key="marginSelAll", width="stretch", index=4)
         colBadNo, colNo = st.columns([0.8, 10], vertical_alignment="center", width="stretch", 
                                            gap="small")
-        colBadNo.badge(":material/position_bottom_right:", width="stretch", help="Define a resolução da imagem.", 
-                        color="red")
+        colBadNo.badge(":material/position_bottom_right:", width="stretch", help="Se marcado, o título não aparecerá. Também não aparecerá se esta e a caixa à esquerda ficarem vazias.", 
+                        color="yellow")
         colNo.checkbox(label=roleLabel[1], key="checkNo", width="stretch", on_change=changeCheckbox, 
-                       args=(1, ), value=False)     
+                       args=(1, ))     
     
 @st.dialog(title=":blue[**Rotação e exibição de imagem**]", width='large', icon=':material/360:', 
            on_dismiss='ignore')
@@ -359,12 +354,11 @@ def operationFiles(*args):
         keyFile = job.split(key)[0] + key
         item = list(st.session_state['bytesAll'].keys()).index(keyFile)
         upLoad = st.session_state['allUpLoads'][item]
-        if mode == 0:
-            pass
-        else:
+        if mode != 0:
             image = Image.open(upLoad)
             st.session_state['angleRotated'] = 0
-            mensSliderUnique(image, keyFile)    
+            mensSliderUnique(image, keyFile)
+            st.session_state['clickAngle'] = True
 
 def zeraVal():
    st.session_state['numSldImg'] = 0
@@ -516,18 +510,21 @@ def pillFuncSave(uploadedFiles):
     st.session_state['bytesAll'] = fullFiles(uploadedFiles, funcSel)
     keysData = list(st.session_state['bytesAll'].keys())
     anglesTwo = compareLoads()
-    for a, ang in enumerate(anglesOne): 
-        angOne = ang
-        angTwo = anglesTwo[a]
-        if angOne != angTwo: 
-            key = keysData[a]
-            st.session_state['bytesAll'][key][0][3] = angOne            
+    clickAng = st.session_state['clickAngle']
+    if clickAng:
+        for a, ang in enumerate(anglesOne): 
+            angOne = ang
+            angTwo = anglesTwo[a]
+            if angOne != angTwo: 
+                key = keysData[a]
+                st.session_state['bytesAll'][key][0][3] = angOne            
     if funcNum == 0:
         saveMultImgPdf()  
     else:
         saveMultImgDocx()
     st.session_state['keyPillFive'] = None
     st.session_state['disabSlid'] = False
+    st.session_state['clickAngle'] = False
        
 def main():
     global optFiles, buttSymbs, optPages
@@ -665,7 +662,7 @@ def setSession():
                'disabPillThree': True, 'numSlidesAll': 0.0, 'disabPillFive': True, 
                'keyPillFive': None, 'numResolAll': 200, 'papelSelAll': list(optAllPapers.keys())[6], 
                'orientSelAll': optAllOrients[1], 'marginSelAll': list(optAllMargins.keys())[-2], 'checkYes': True, 
-               'checkNo': False}
+               'checkNo': False, 'clickAngle': False}
     for key, val in keyVals.items():
         if key not in st.session_state:
             st.session_state[key] = val
