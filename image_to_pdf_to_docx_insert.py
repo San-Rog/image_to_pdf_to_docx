@@ -293,6 +293,7 @@ def saveMultImgPdf():
         posX = (widthPaper - img.width)//2
         posY = (heightPaper - img.height)//2
         posXtext = widthPaper//2
+        st.write(st.session_state['checkYes'])
         if st.session_state['checkYes']:
             drawImage.text((posXtext, posY-50), newName, fill="blue", font=font)
         canvas.paste(img, (posX, posY))
@@ -323,6 +324,8 @@ def saveMultImgDocx():
         newSize = int(widthPaper/resolFiles)
         newMargin = newSize*marginFiles
         newCaption = designateImgs(nameFile, u, nBts, angleStr, funcFile, 1)
+        st.write(st.session_state['checkYes'])
+        
         if st.session_state['checkYes']:
             titulo = doc.add_paragraph(newCaption)
             titulo.style = 'Caption'  
@@ -661,7 +664,7 @@ def setSession():
                'disabSlid': True, 'disabPill': True, 'disabPillTwo': True, 
                'disabPillThree': True, 'numSlidesAll': 0.0, 'disabPillFive': True, 
                'keyPillFive': None, 'numResolAll': 200, 'papelSelAll': list(optAllPapers.keys())[6], 
-               'orientSelAll': optAllOrients[1], 'marginSelAll': list(optAllMargins.keys())[-2], 'checkYes': True, 
+               'orientSelAll': optAllOrients[1], 'marginSelAll': list(optAllMargins.keys())[-2], 'checkYes': False, 
                'checkNo': False, 'clickAngle': False}
     for key, val in keyVals.items():
         if key not in st.session_state:
