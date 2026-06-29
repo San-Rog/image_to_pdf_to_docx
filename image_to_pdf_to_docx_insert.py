@@ -37,9 +37,16 @@ def mensInfoAll():
     dfButtons = pd.DataFrame(dictButtons)
     st.table(dfButtons, border=True, width="stretch", height="stretch")
         
+def changeRadio(num):
+    if num == 0:
+        st.session_state['radioNo'] = None
+    else:
+        st.session_state['radioYes'] = None
+
 @st.dialog(title=":red[Configuração de imagens] :material/create_new_folder:", 
            width="medium", icon=":material/settings:", on_dismiss="ignore") 
 def mensCreateAll(fileUps):
+    roleLabel = ["imagens com título sobreposto", "imagens sem título sobreposto"]
     intervUps = range(len(fileUps))
     itens = [w+1 for w in intervUps]
     itensBruts = [w for w in intervUps]
@@ -61,6 +68,7 @@ def mensCreateAll(fileUps):
     )
     colAngleTime, colOthers = st.columns(spec=2, vertical_alignment="center", width="stretch", 
                                          gap="medium")
+    
     with colAngleTime:
         colBadAngle, colAngle = st.columns([0.8, 10], vertical_alignment="center", width="stretch", 
                                            gap="small")
@@ -80,6 +88,13 @@ def mensCreateAll(fileUps):
                           color="yellow")
         colResol.slider(label="Selecione a resolução da imagem", min_value=200, max_value=1600, 
                        key="numResolAll", value=200, label_visibility="collapsed", step=1)
+        colBadYes, colYes = st.columns([0.8, 10], vertical_alignment="center", width="stretch", 
+                                           gap="small")
+        colBadYes.badge(":material/position_top_right:", width="stretch", help="Define a resolução da imagem.", 
+                        color="red")
+        colYes.radio(label="Escolha o modo de identificar os arquivos", options=roleLabel[0], key="radioYes", 
+                     horizontal=True, label_visibility="collapsed", width="stretch",  
+                     args=(0, ), index=0) 
     with colOthers:
         papers = list(optAllPapers.keys())
         margins = list(optAllMargins.keys())        
@@ -94,7 +109,7 @@ def mensCreateAll(fileUps):
         colBadOrients.badge(":material/landscape:", width="stretch", help="Define a orientação da página.", 
                             color="blue")
         colOrients.selectbox(label="Selecione a orientação do papel", options=optAllOrients, label_visibility="collapsed", 
-                             key="orientSelAll", width="stretch", index=1)
+                             key="orientSelAll", width="stretch", index=None)
         
         colBadMargins, colMargins = st.columns([0.8, 10], vertical_alignment="center", width="stretch", 
                                                gap="small")
@@ -102,7 +117,14 @@ def mensCreateAll(fileUps):
                             color="yellow")
         colMargins.selectbox(label="Selecione o formato do papel", options=margins, label_visibility="collapsed", 
                              key="marginSelAll", width="stretch", index=4)
-        
+        colBadNo, colNo = st.columns([0.8, 10], vertical_alignment="center", width="stretch", 
+                                           gap="small")
+        colBadNo.badge(":material/position_bottom_right:", width="stretch", help="Define a resolução da imagem.", 
+                        color="red")
+        colNo.radio(label="Escolha o modo de identificar os arquivos", options=roleLabel[1], key="radioNo", 
+                    horizontal=True, label_visibility="collapsed", width="stretch", on_change=changeRadio, 
+                    args=(1, ), index=None)     
+    
 @st.dialog(title=":blue[**Rotação e exibição de imagem**]", width='large', icon=':material/360:', 
            on_dismiss='ignore')
 def mensSliderUnique(*args):
@@ -272,7 +294,8 @@ def saveMultImgPdf():
         posX = (widthPaper - img.width)//2
         posY = (heightPaper - img.height)//2
         posXtext = widthPaper//2
-        drawImage.text((posXtext, posY-50), newName, fill="blue", font=font)
+        if st.session_state['radioYes'] is not None:
+            drawImage.text((posXtext, posY-50), newName, fill="blue", font=font)
         canvas.paste(img, (posX, posY))
         imagens.append(canvas)
     mensDownPdf(imagens, resolFiles, pdfMerge, [12, 1.5])
@@ -301,13 +324,17 @@ def saveMultImgDocx():
         newSize = int(widthPaper/resolFiles)
         newMargin = newSize*marginFiles
         newCaption = designateImgs(nameFile, u, nBts, angleStr, funcFile, 1)
-        titulo = doc.add_paragraph(newCaption)
-        titulo.style = 'Caption'  
-        formato_fonte = titulo.runs[0].font
-        formato_fonte.size = Pt(8)  
+        if st.session_state['radioYes'] is not None:
+            titulo = doc.add_paragraph(newCaption)
+            titulo.style = 'Caption'  
+            formato_fonte = titulo.runs[0].font
+            formato_fonte.size = Pt(8)  
         doc.add_picture(imgBytes, width=Inches(newMargin))
-        lastAnte = doc.paragraphs[-2]
-        lastAnte.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        try:
+            lastAnte = doc.paragraphs[-2]
+            lastAnte.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        except:
+            pass
         lastPara = doc.paragraphs[-1]
         lastPara.alignment = WD_ALIGN_PARAGRAPH.CENTER
         if u < nLim:
@@ -503,7 +530,7 @@ def main():
     global optAll, optText, optInfo, optCreate 
     global scopeText, optFunc, optAllPapers
     global optAllOrients, optAllMargins
-    global optAllAngles
+    global optAllAngles, optLabesAll
     optAllOrients = ["paisagem", "retrato"]
     optAllMargins = {'grande': 0.80, 'máxima': 0.75, 'média': 0.85, 'mínima': 0.95, 'pequena': 0.90}
     optAllAngles = [angle for angle in range(-360, 420, 90)]
@@ -633,7 +660,8 @@ def setSession():
                'disabSlid': True, 'disabPill': True, 'disabPillTwo': True, 
                'disabPillThree': True, 'numSlidesAll': 0.0, 'disabPillFive': True, 
                'keyPillFive': None, 'numResolAll': 200, 'papelSelAll': list(optAllPapers.keys())[6], 
-               'orientSelAll': optAllOrients[1], 'marginSelAll': list(optAllMargins.keys())[-2]}
+               'orientSelAll': optAllOrients[1], 'marginSelAll': list(optAllMargins.keys())[-2], 'radioYes': 0, 
+               'radioNo': None}
     for key, val in keyVals.items():
         if key not in st.session_state:
             st.session_state[key] = val
